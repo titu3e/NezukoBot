@@ -107,8 +107,8 @@ home_keyboard_pm = InlineKeyboardMarkup(
                 text="Commands ❓", callback_data="bot_commands"
             ),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/rozari0/NezukoBot",
+                text="DEV",
+                url="https://t.me/Sungjinwooarc",
             ),
         ],
         [
@@ -141,8 +141,8 @@ keyboard = InlineKeyboardMarkup(
                 url=f"t.me/{BOT_USERNAME}?start=help",
             ),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/rozari0/NezukoBot",
+                text="Dev",
+                url="https://t.me/sungjinwooarc",
             ),
         ],
         [
@@ -158,7 +158,7 @@ keyboard = InlineKeyboardMarkup(
 @app.on_message(filters.command("start"))
 async def start(_, message):
     if message.chat.type != "private":
-        return await message.reply_photo(photo="https://cdn.awwni.me/2gj9h.jpg",
+        return await message.reply_photo(photo="https://c.tenor.com/IuN32K4QAXYAAAAd/the-beginning-after-the-end-arthur-leywin.gif",
             caption="Pm Me For More Details.", reply_markup=keyboard
         )
     if len(message.text.split()) > 1:
@@ -181,7 +181,7 @@ async def start(_, message):
                 reply_markup=keyb,
             )
     else:
-        await message.reply_photo(photo="https://cdn.awwni.me/2gj9h.jpg",
+        await message.reply_photo(photo="https://c.tenor.com/IuN32K4QAXYAAAAd/the-beginning-after-the-end-arthur-leywin.gif",
             caption=home_text_pm,
             reply_markup=home_keyboard_pm,
         )
