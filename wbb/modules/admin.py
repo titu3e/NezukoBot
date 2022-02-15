@@ -104,18 +104,10 @@ async def current_chat_permissions(chat_id):
         perms.append("can_send_messages")
     if perm.can_send_media_messages:
         perms.append("can_send_media_messages")
-    if perm.can_send_stickers:
-        perms.append("can_send_stickers")
-    if perm.can_send_animations:
-        perms.append("can_send_animations")
-    if perm.can_send_games:
-        perms.append("can_send_games")
-    if perm.can_use_inline_bots:
-        perms.append("can_use_inline_bots")
+    if perm.can_send_other_messages:
+        perms.append("can_send_other_messages")
     if perm.can_add_web_page_previews:
         perms.append("can_add_web_page_previews")
-    if perm.can_send_polls:
-        perms.append("can_send_polls")
     if perm.can_change_info:
         perms.append("can_change_info")
     if perm.can_invite_users:
@@ -387,13 +379,19 @@ async def demote(_, message: Message):
 # Pin Messages
 
 
-@app.on_message(filters.command("pin") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command(["pin","unpin"]) & ~filters.edited & ~filters.private)
 @adminsOnly("can_pin_messages")
 async def pin(_, message: Message):
     if not message.reply_to_message:
-        return await message.reply_text("Reply to a message to pin it.")
+        return await message.reply_text("Reply to a message to pin/unpin it.")
     r = message.reply_to_message
-    await r.pin(disable_notification=True)
+    if message.command[0] == "unpin":
+        await r.unpin()
+        return await message.reply_text(f"Unpinned {r.link}!")
+    if message.command[1] != "loud":
+        await r.pin(disable_notification=True)
+    else:
+        await r.pin(disable_notification=False)
     await message.reply(
         f"**Pinned [this]({r.link}) message.**",
         disable_web_page_preview=True,
